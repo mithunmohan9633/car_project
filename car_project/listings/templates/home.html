@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h2>Welcome to the Home Page</h2>
+    
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}!</p>
+        <p>Sale Details</p>
+        <nav>
+            <ul>
+                <!-- Links for managing cars for sale -->
+                <li><a href="{% url 'add_car_for_sale' %}">Add Car for Sale</a></li>
+                <li><a href="{% url 'list_my_cars' %}">List My Cars</a></li>
+                <li><a href="{% url 'list_cars_for_sale' %}">Cars For Sale</a></li>
+            </ul>
+            <p>Rent Section</p>
+            <ul>
+                <!-- Links for managing cars for rent -->
+                <li><a href="{% url 'add_car_for_rent' %}">Add Car for Rent</a></li>
+                <li><a href="{% url 'list_my_rent_cars' %}">List My Rent Cars</a></li>
+                <li><a href="{% url 'list_cars_for_rent' %}">Cars For Rent</a></li>  <!-- Correct usage -->
+            </ul>
+            
+            
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    {% else %}
+        <p>You are not logged in.</p>
+        <nav>
+            <!-- Links visible when the user is not logged in -->
+            <a href="{% url 'login' %}">Login</a> | 
+            <a href="{% url 'signup' %}">Sign Up</a>
+        </nav>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.name }} for Sale</title>
+</head>
+<body>
+    <h1>{{ car.name }} for Sale</h1>
+
+    {% if car.image %}
+        <img src="{{ car.image.url }}" alt="{{ car.name }}" style="width: 100%; margin-bottom: 15px;">
+    {% endif %}
+
+    <p><strong>Brand:</strong> {{ car.brand }}</p>
+    <p><strong>Model Year:</strong> {{ car.model_year }}</p>
+    <p><strong>Kilometers Driven:</strong> {{ car.km_driven }}</p>
+    <p><strong>Price:</strong> ₹{{ car.price }}</p>
+    <p><strong>Oil Type:</strong> {{ car.oil_type }}</p>
+    <p><strong>Description:</strong> {{ car.description }}</p>
+    <p><strong>Owner:</strong> {{ car.user.username }}</p>
+    <p><strong>Registration Number:</strong> {{ car.registration_number }}</p>
+    <p><strong>Insurance End Date:</strong> {{ car.insurance_end_date }}</p>
+
+    <div>
+        <button onclick="window.open('https://www.google.com/maps/search/?api=1&query={{ car.user.my_location_link }}', '_blank')">Find Owner Location</button>
+
+        {% if car.user.whatsapp_number %}
+            <button onclick="window.open('https://wa.me/{{ car.user.whatsapp_number }}', '_blank')">Chat with WhatsApp</button>
+        {% endif %}
+
+        <button onclick="window.open('https://vahan.parivahan.gov.in/vahan/vahan/ui/stateValidation', '_blank')">Verify with mParivahan</button>
+    </div>
+
+    <!-- Owner Actions: Only show if the logged-in user is the owner -->
+    {% if user == car.user %}
+        <div>
+            <a href="{% url 'car_for_sale_edit' car.id %}">Edit Car</a>
+            <form action="{% url 'delete_car_for_sale' car.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete Car</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <h2>Other Cars for Sale</h2>
+    <ul>
+        {% for random_car in random_cars %}
+            <li>
+                <a href="{% url 'car_for_sale_detail' random_car.id %}">{{ random_car.name }}</a> - ₹{{ random_car.price }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'list_cars_for_sale' %}">Back to Cars for Sale</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars for Rent</title>
+</head>
+<body>
+    <h2>Available Cars for Rent</h2>
+    <ul>
+        {% for car in cars_for_rent %}
+            <li>
+                <strong>{{ car.name }}</strong> - {{ car.brand.name }} <br>
+                Price: {{ car.price_per_day }} per day <br>
+                <img src="{{ car.rent_car_image.url }}" alt="{{ car.name }}" width="100">
+                <p>{{ car.description }}</p>
+            </li>
+        {% empty %}
+            <li>No cars available for rent.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

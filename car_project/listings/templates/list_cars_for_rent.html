@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cars for Rent</title>
+</head>
+<body>
+    <h2>Cars for Rent</h2>
+
+    <nav>
+        <form method="GET">
+            <input type="text" name="search" placeholder="Search by Car Name" value="{{ request.GET.search }}">
+            
+            <select name="brand">
+                <option value="">Select Brand</option>
+                {% for brand in brands %}
+                    <option value="{{ brand.name }}" {% if brand.name == request.GET.brand %}selected{% endif %}>{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+
+            <select name="oil_type">
+                <option value="">Select Oil Type</option>
+                {% for oil_type in oil_types %}
+                    <option value="{{ oil_type.type }}" {% if oil_type.type == request.GET.oil_type %}selected{% endif %}>{{ oil_type.type }}</option>
+                {% endfor %}
+            </select>
+
+            <select name="price">
+                <option value="">Select Price</option>
+                <option value="below_50k" {% if request.GET.price == 'below_50k' %}selected{% endif %}>Below 50K</option>
+                <option value="1L_to_3L" {% if request.GET.price == '1L_to_3L' %}selected{% endif %}>1L to 3L</option>
+                <option value="3L_to_5L" {% if request.GET.price == '3L_to_5L' %}selected{% endif %}>3L to 5L</option>
+                <option value="5L_to_10L" {% if request.GET.price == '5L_to_10L' %}selected{% endif %}>5L to 10L</option>
+                <option value="above_10L" {% if request.GET.price == 'above_10L' %}selected{% endif %}>Above 10L</option>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
+    </nav>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price per Day</th>
+            <th>Mileage</th>
+            <th>Description</th>
+        </tr>
+        {% for car in cars_for_rent %}
+        <tr>
+            <td>{{ car.name }}</td>
+            <td>{{ car.brand.name }}</td>
+            <td>{{ car.price_per_day }}</td>
+            <td>{{ car.mileage }}</td>
+            <td>{{ car.description }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No cars available for rent.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

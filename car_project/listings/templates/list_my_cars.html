@@ -1,0 +1,6 @@
+<h2>My Cars</h2>
+<ul>
+    {% for car in my_cars %}
+    <li>{{ car.name }} - {{ car.price }} - {{ car.brand.name }}</li>
+    {% endfor %}
+</ul>

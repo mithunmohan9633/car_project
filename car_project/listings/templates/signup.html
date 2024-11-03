@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+    <h2>Sign Up</h2>
+    <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" required><br>
+
+        <label for="my_location_link">Location Link:</label>
+        <input type="text" name="my_location_link"><br>
+
+        <label for="profilepick">Profile Picture:</label>
+        <input type="file" name="profilepick"><br>
+
+        <label for="whatsapp_num">WhatsApp Number:</label>
+        <input type="text" name="whatsapp_num"><br>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+</body>
+</html>

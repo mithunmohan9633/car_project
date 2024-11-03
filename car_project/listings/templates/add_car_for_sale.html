@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car for Sale</title>
+</head>
+<body>
+    <h2>Add Car for Sale</h2>
+
+    <!-- Display success messages -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+
+        <div>
+            <label for="model_year">Model Year:</label>
+            <input type="number" name="model_year" id="model_year" required>
+        </div>
+
+        <div>
+            <label for="km_driven">Kilometers Driven:</label>
+            <input type="number" name="km_driven" id="km_driven" required>
+        </div>
+
+        <div>
+            <label for="oil_type">Oil Type:</label>
+            <select name="oil_type" id="oil_type" required>
+                {% for oil in oil_types %}
+                    <option value="{{ oil.type }}">{{ oil.type }}</option>
+                {% endfor %}
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="brand">Brand:</label>
+            <input type="text" name="brand" id="brand" placeholder="Enter car brand" required>
+        </div>
+        
+
+        <div>
+            <label for="accidental_background">Accidental Background:</label>
+            <input type="checkbox" name="accidental_background" id="accidental_background">
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" required></textarea>
+        </div>
+
+        <div>
+            <label for="price">Price:</label>
+            <input type="number" name="price" id="price" step="0.01" required>
+        </div>
+
+        <div>
+            <label for="mileage">Mileage:</label>
+            <input type="number" name="mileage" id="mileage" step="0.01" required>
+        </div>
+
+        <div>
+            <label for="front_image">Front Image:</label>
+            <input type="file" name="front_image" id="front_image" accept="image/*" required>
+        </div>
+
+        <div>
+            <label for="leftside_img">Left Side Image:</label>
+            <input type="file" name="leftside_img" id="leftside_img" accept="image/*">
+        </div>
+
+        <div>
+            <label for="rightside_img">Right Side Image:</label>
+            <input type="file" name="rightside_img" id="rightside_img" accept="image/*">
+        </div>
+
+        <div>
+            <label for="back_image">Back Image:</label>
+            <input type="file" name="back_image" id="back_image" accept="image/*">
+        </div>
+
+        <div>
+            <label for="registration_number">Registration Number:</label>
+            <input type="text" name="registration_number" id="registration_number" required>
+        </div>
+
+        <div>
+            <label for="insurance_end_date">Insurance End Date:</label>
+            <input type="date" name="insurance_end_date" id="insurance_end_date" required>
+        </div>
+
+        <div>
+            <label for="ownership_type">Ownership Type:</label>
+            <select name="ownership_type" id="ownership_type" required>
+                <option value="1st">1st Owner</option>
+                <option value="2nd">2nd Owner</option>
+                <option value="3rd">3rd Owner</option>
+            </select>
+        </div>
+
+        <button type="submit">Add Car</button>
+    </form>
+
+    <a href="{% url 'list_cars_for_sale' %}">View Cars for Sale</a>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
